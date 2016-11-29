@@ -13,6 +13,7 @@ import nfl.pedometerlibrary.StepsCountTool;
 
 public class MainActivity extends AppCompatActivity {
 
+    private String s ;
     private TextView tv_steps;
     private Timer timer;
     private TimerTask timmerTask;
@@ -30,8 +31,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initView();
-        initData();
+        System.out.println(s.equals("any string"));
+//        initView();
+//        initData();
     }
 
     @Override
