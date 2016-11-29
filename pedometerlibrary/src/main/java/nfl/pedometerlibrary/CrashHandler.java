@@ -1,6 +1,9 @@
 package nfl.pedometerlibrary;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -72,6 +75,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
      */
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
+<<<<<<< HEAD
         if (!handleException(ex)) {
             // 如果用户没有处理则让系统默认的异常处理器来处理
             // mDefaultHandler.uncaughtException(thread, ex);
@@ -82,8 +86,25 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
                 Log.e(TAG, "error : ", e);
             }
             //退出程序
+=======
+        handleException(ex);
+        try {
+            Thread.sleep(1500);
+
+//            Intent intent = new Intent();
+//            intent.setClassName("nfl.pedometer", "nfl.pedometer.MainActivity");
+//            PendingIntent restartIntent = PendingIntent.getActivity(
+//                    mContext.getApplicationContext(), 0, intent,
+//                    Intent.FLAG_ACTIVITY_NEW_TASK);
+//            AlarmManager mgr = (AlarmManager) mContext
+//                    .getSystemService(Context.ALARM_SERVICE);
+//            mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 1000,
+//                    restartIntent); // 1秒钟后重启应用
+>>>>>>> 4fd7608834b0014e64e98663369de4528d9b7adf
             android.os.Process.killProcess(android.os.Process.myPid());
-            System.exit(1);
+            System.exit(0);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -97,6 +118,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         if (ex == null) {
             return false;
         }
+        ex.printStackTrace();
         //使用Toast来显示异常信息
         new Thread() {
             @Override
@@ -110,6 +132,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         collectDeviceInfo(mContext);
         //保存日志文件
         saveCrashInfo2File(ex);
+        android.os.Process.killProcess(android.os.Process.myPid());//出现未捕获异常后退出应用
         return true;
     }
 
@@ -174,10 +197,14 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
             String time = formatter.format(new Date());
             String fileName = "crash-" + time + "-" + timestamp + ".log";
             if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+<<<<<<< HEAD
                 String path = Environment.getExternalStorageDirectory().getPath()
                         + File.separator + "Crash"
                         + File.separator + packageName;
                 Log.i("NFL", path);
+=======
+                String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "";
+>>>>>>> 4fd7608834b0014e64e98663369de4528d9b7adf
                 File dir = new File(path);
                 if (!dir.exists()) {
                     dir.mkdirs();
