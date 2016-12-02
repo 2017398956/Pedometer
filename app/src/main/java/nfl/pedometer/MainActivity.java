@@ -30,8 +30,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initView();
-        initData();
+        String s = null;
+        boolean isTrue = s.equals("slfjk") ;
+        System.out.println(isTrue) ;
+//        initView();
+//        initData();
     }
 
     @Override
