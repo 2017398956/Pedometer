@@ -28,6 +28,10 @@ import java.util.Map;
 public class CrashHandler implements Thread.UncaughtExceptionHandler {
     public static final String TAG = "CrashHandler";
     private String packageName;
+    public static final String TAG = "CrashHandler";
+    private String packageName;
+    //系统默认的UncaughtException处理类
+    private Thread.UncaughtExceptionHandler mDefaultHandler;
     //CrashHandler实例
     private static CrashHandler INSTANCE = new CrashHandler();
     //程序的Context对象
@@ -58,6 +62,10 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     public void init(Context context) {
         mContext = context;
         packageName = context.getPackageName();
+        // 获取系统默认的UncaughtException处理器
+        // mDefaultHandler = Thread.getDefaultUncaughtExceptionHandler();
+        // 设置该CrashHandler为程序的默认处理器
+        // Thread.setDefaultUncaughtExceptionHandler(this);
     }
 
     /**
@@ -65,6 +73,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
      */
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
+
         handleException(ex);
         try {
 //            Thread.sleep(1500);
@@ -78,8 +87,14 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 //                    .getSystemService(Context.ALARM_SERVICE);
 //            mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 1000,
 //                    restartIntent); // 1秒钟后重启应用
+
 //            android.os.Process.killProcess(android.os.Process.myPid());
 //            System.exit(1);
+
+
+            android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(0);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -121,7 +136,9 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     public void collectDeviceInfo(Context ctx) {
         try {
             PackageManager pm = ctx.getPackageManager();
+
             PackageInfo pi = pm.getPackageInfo(packageName , PackageManager.GET_ACTIVITIES);
+
             if (pi != null) {
                 String versionName = pi.versionName == null ? "null" : pi.versionName;
                 String versionCode = pi.versionCode + "";
@@ -176,6 +193,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
             if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
                 String path = Environment.getExternalStorageDirectory().getAbsolutePath()
                         + File.separator + "Crash" + File.separator + packageName + File.separator;
+                Log.i("NFL", path);
                 File dir = new File(path);
                 if (!dir.exists()) {
                     dir.mkdirs();

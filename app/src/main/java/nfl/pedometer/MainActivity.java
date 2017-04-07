@@ -13,6 +13,7 @@ import nfl.pedometerlibrary.StepsCountTool;
 
 public class MainActivity extends AppCompatActivity {
 
+    private String s ;
     private TextView tv_steps;
     private Timer timer;
     private TimerTask timmerTask;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         String s = null;
         boolean isTrue = s.equals("slfjk") ;
         System.out.println(isTrue) ;
+        System.out.println(s.equals("any string"));
 //        initView();
 //        initData();
     }
