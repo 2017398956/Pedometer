@@ -28,8 +28,6 @@ import java.util.Map;
 public class CrashHandler implements Thread.UncaughtExceptionHandler {
     public static final String TAG = "CrashHandler";
     private String packageName;
-    public static final String TAG = "CrashHandler";
-    private String packageName;
     //系统默认的UncaughtException处理类
     private Thread.UncaughtExceptionHandler mDefaultHandler;
     //CrashHandler实例
