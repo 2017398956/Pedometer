@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.TextView;
 
 import java.util.Timer;
@@ -13,7 +14,6 @@ import nfl.pedometerlibrary.StepsCountTool;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String s ;
     private TextView tv_steps;
     private Timer timer;
     private TimerTask timmerTask;
@@ -31,24 +31,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        String s = null;
-        boolean isTrue = s.equals("slfjk") ;
-        System.out.println(isTrue) ;
-        System.out.println(s.equals("any string"));
-//        initView();
-//        initData();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        timer.schedule(timmerTask, 0, 1000);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        timer.cancel();
+        initView();
+        initData();
+        Log.i("NFL", "onCreate");
     }
 
     private void initView() {
@@ -63,6 +48,22 @@ public class MainActivity extends AppCompatActivity {
                 handler.sendEmptyMessage(100);
             }
         };
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        timer.schedule(timmerTask, 0, 1000);
+        Log.i("NFL", "onResume");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (null != timer) {
+            timer.cancel();
+        }
+        Log.i("NFL", "onPause");
     }
 
 }

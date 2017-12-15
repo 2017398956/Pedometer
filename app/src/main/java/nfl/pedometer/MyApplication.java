@@ -16,7 +16,7 @@ public class MyApplication extends Application {
         super.onCreate();
         CrashHandler crashHandler = CrashHandler.getInstance();
         crashHandler.init(getApplicationContext());
-        Thread.setDefaultUncaughtExceptionHandler(crashHandler);
+//        Thread.setDefaultUncaughtExceptionHandler(crashHandler);
         StepsCountTool.context = getApplicationContext() ;
     }
 }

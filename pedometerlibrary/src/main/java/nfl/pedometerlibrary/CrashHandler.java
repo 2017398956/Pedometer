@@ -28,8 +28,6 @@ import java.util.Map;
 public class CrashHandler implements Thread.UncaughtExceptionHandler {
     public static final String TAG = "CrashHandler";
     private String packageName;
-    public static final String TAG = "CrashHandler";
-    private String packageName;
     //系统默认的UncaughtException处理类
     private Thread.UncaughtExceptionHandler mDefaultHandler;
     //CrashHandler实例
@@ -137,7 +135,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         try {
             PackageManager pm = ctx.getPackageManager();
 
-            PackageInfo pi = pm.getPackageInfo(packageName , PackageManager.GET_ACTIVITIES);
+            PackageInfo pi = pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
 
             if (pi != null) {
                 String versionName = pi.versionName == null ? "null" : pi.versionName;
